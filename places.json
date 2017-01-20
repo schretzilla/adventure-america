@@ -1,0 +1,117 @@
+[
+	{
+		"name": "Pittsburgh",
+		"long":	-79.995888,
+		"lat": 40.440624
+	},
+	{
+		"name": "Chicago",
+		"long": -87.623177,
+		"lat": 41.881832
+	},
+	{
+		"name": "Madison",
+		"long": -89.40121,
+		"lat": 43.087806
+	},
+	{
+		"name": "St. Louis",
+		"long": -90.199402,
+		"lat": 38.627003
+	},	
+	{
+		"name": "Nashville",
+		"long": -86.767960,
+		"lat": 36.174465
+	},
+	{
+		"name": "Baton Rouge",
+		"long": -91.147385,
+		"lat": 30.471165
+	},
+	{
+		"name": "Dallas",
+		"long": -96.864586,
+		"lat": 32.736259
+	},
+	{
+		"name": "South Dekota",
+		"long": -102.3397,
+		"lat": 43.8554
+	},
+	{
+		"name": "Rocky Mountains",
+		"long": -105.521665,
+		"lat": 40.377206
+	},
+	{
+		"name": "Telluride",
+		"long": -107.812286,
+		"lat": 37.937492
+	},
+	{
+		"name": "Utah",
+		"long": -112.167694,
+		"lat": 37.628315
+	},
+	{
+		"name": "Las Vegas",
+		"long": -115.172813,
+		"lat": 36.114647
+	},
+	{
+		"name": "San Francisco",
+		"long": -122.431297,
+		"lat": 37.773972
+	},
+	{
+		"name": "San Diego",
+		"long": -117.161087,
+		"lat": 32.715736
+	},
+	{
+		"name": "Grand Canyon",
+		"long": -112.125092,
+		"lat": 36.056595
+	},
+	{
+		"name": "Paige",
+		"long": -111.460867,
+		"lat": 36.902769
+	},
+	{
+		"name": "Sedona",
+		"long": -111.760826,
+		"lat": 34.871002
+	},
+	{
+		"name": "Phoenix",
+		"long": -112.074036,
+		"lat": 33.448376
+	},
+	{
+		"name": "Tucson",
+		"long": -110.911789,
+		"lat": 32.253460
+	},
+	{
+		"name": "Guadalupe Peak",
+		"long": -104.860727,
+		"lat": 31.891483
+	},
+	{
+		"name": "Austin",
+		"long": -97.755996,
+		"lat": 30.307182
+	},
+	{
+		"name": "New Orleans",
+		"long": -90.071533,
+		"lat": 29.951065
+	},
+	{
+		"name": "West Chester",
+		"long": -75.6058333,
+		"lat": 39.9605556
+	}
+]

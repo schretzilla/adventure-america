@@ -1,0 +1,48 @@
+#header-img-div{
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    background-size: cover;
+                    -o-background-size: cover;
+                    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('mt-header.jpg') no-repeat center center scroll;
+                    height:400px;
+            }
+			.states {
+			  fill: #e6f2ff;
+			  stroke: #67796F;
+			}
+
+			#canvas {
+				position: absolute;
+				/*max-height: 100%;*/
+			    /*background-color: #eee;*/
+			    overflow-y: auto;
+			    right:0;
+                z-index:-1;
+                /*TODO: mention how this improves scroll by offloadin css features to the GPU*/
+                -webkit-transform: translate3d(0, 0, 0); 
+                -moz-transform: translate3d(0, 0, 0);
+                -ms-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+
+                overflow: hidden;
+                width: 100%; 
+
+			}
+            #svg-ele {
+                right:0;
+                float: right;
+            }
+            #text {
+                /*background-color: rgba(255, 255, 255, 0.5);*/
+                background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, .1));
+                /*-webkit-filter: opacity(.2);
+                 filter: opacity(.2);*/
+            }
+            #footer {
+                height: 800px;
+            }
+            .jumbotron.text-center{
+                padding-top: 120px;
+                color: #ffffff;
+                background-color: transparent;
+            }
