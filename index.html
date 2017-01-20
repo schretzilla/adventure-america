@@ -1,6 +1,1248 @@
+<!doctype html>
 <html>
-<header><title>This is title</title></header>
-<body>
-Hello world
+
+<head>
+		<title>Cross Country Adventure</title>
+
+        <!--Custom styles-->
+        <link rel="stylesheet" href="american-adventure.css" >
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!--Lodash for debounce functions
+        <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>-->
+
+
+		<script src="http://d3js.org/d3.v4.min.js"></script>
+		<!-- Imported above soly for line? Need to update dependencies -->
+
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<!-- Condenced Files -->
+		<script src="https://d3js.org/d3-array.v1.min.js"></script>
+		<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+		<!-- Unable to use selections with transitions if this exists 
+		<script src="https://d3js.org/d3-selection.v1.min.js"></script>
+		-->
+		<script src="https://d3js.org/d3-collection.v1.min.js"></script>
+		<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+		<script src="https://d3js.org/d3-request.v1.min.js"></script> 
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+		<div id="header-img-div" class="row">
+            <div class="jumbotron text-center" >
+                <div class="container">
+                    <!--<img id="header-img" src="mt-header.jpg" class="img-responsive">-->
+                    <h1 class="jumbotron-heading">A Somewhat Epic X Country Adventure</h1>
+                    <p class="lead">By Scott Schretzenmaier </p>
+                </div>
+            </div>
+		</div>
+
+<div class="container-fluid">
+
+        
+		<div class="row">
+				<div id="text" class="col-md-4">
+					<!-- TODO: Fix Columns width so text does not move after load as it messes up path calculation
+							Alternative solution is to recalculate all content heights after screen width change --> 
+					<div id="Pittsburgh-Pt">
+                        <h1>Where it starts...</h1>
+
+                        <div class="thumbnail">
+                            <img src="pre-trip-head-shot.png" class="img-responsive">
+                            <div class="caption">
+                                <p>August 2016</p>
+                            </div>
+                        </div>
+                        
+                        <p class="lead">This is me in August on my way to my last presentation for my job at the University of Pittsburgh Medical Center. Throughout my two 
+                            years here I had
+                            the unique opportunity to pioneer UPMC's new Rotaional Engineering position. The position required the employee to be placed in a different division
+                            throughout the company every six months. It kept me on my toes as I worked across a wide stack of different technologies and at the conclusion
+                            of the program I had the pick of which department I would like to work in. Although the future looked bright working on the MyUPMC team developing
+                            all patient portals the idea of an epic cross country trip filled my mind.
+                        </p>
+                    </div>
+                    <div id="Pittsburgh-Chicago-Path">
+						<h1>So I left my job...</h1>
+
+						<p class="lead"> 
+                            It wasn't an easy decision to leave a stable job in favor of a signifcantly less stable cross country trip but after talking to many 
+                            experienced coworkers and friends I knew that the regret of not taking the trip was much more daunting. I sold or gave away everything I 
+                            considered nonessential then I packed my small 2001 Toyota Celica with everything left and said goodbye to my Pittsburgh friends. I didn't
+                            know for sure where I was going so I was flyin by the seat of my pants as I drove West.  
+                        
+						</p>
+                        <div class="thumbnail">
+                            <img src="packed-car.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>My 2001 Celica full to the brim</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 0 -->
+
+					<div id="Chicago-Pt">
+                        <h1>Chi Town Bound</h1>
+
+                        <p class="lead">Chicago was the first stop on my journey. I had visited twice in the past, once for a half marathon and a separate occasion on my way to Wisconsin. It seemed like an obvious stop for two reasons. One, I have a very good friend who lives here, two, it’s Chicago. Chicago is more than four times the size of Pittsburgh and it showed. </p>
+                    
+                        <div class="thumbnail">
+                            <img src="chicago-view.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Willis Tower is 3X's Pittsburgh's Cathedral of Learning </p>
+                            </div>
+                        </div>
+
+                        <p class="lead">Chicago was incredible bike friendly which was excellent for me as I'm an avid cyclist. I biked all over the city but it seemed the more I biked the more cool things I felt I had to check out. Thankfully my good friend Will was more than willing to take time out of his day to show me some of his favorite spots.  </p>
+                        
+                        <div class="thumbnail">
+                            <img src="chicago-will.png" class="img-responsive">
+                            <div class="caption">
+                                <p>My good buddy Will showing me this awesome city.</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+					<div id="Chicago-Madison-Path">
+						<h1>Go Pirates!</h1>
+						<p class="lead">
+                            After a bit I left Chicago and continued making my way West. My good friend Nick worked in Madison, Wisconsin so I figured the cheese capital of the country would be a great next stop. Nick informed me that him and his friends are heading to Milwaukee for a Brewers game so on the way to Madison I stopped to cheer on the Pittsburgh Pirates.
+						</p>
+                        
+                        <div class="thumbnail">
+                            <img src="brewers-game.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The best seats I've ever had!</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 1-->
+
+					<div id="Madison-Pt">
+                        <h1>Madison "Madtown"</h1>
+
+                        <p class="lead">
+                            I immediately understood why people are drawn to live in Madison. There are hundreds of miles of bike trails, downtown is gorgeous and the cheese was beyond all expectations. There is a farmers market every weekend surrounding the capital building.  I was sure to get my share of fresh vegetables and cheese while I was in town.
+                        </p>
+
+                         <div class="thumbnail">
+                            <img src="madison-city.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Shops around the Capitol Building</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            Nick and I biked through a fair amount of downtown to stop at key iconic place like the lakes and the famous Madison zoo. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="madison-zoo.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Messing around at the madison zoo </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+					<div id="Madison-St-Louis-Path">
+						<h1>Goodbye Madtown</h1>
+						<p class="lead">
+                             After some time in Madison I found other opportunities were pulling me towards the south. I took one last afternoon to bike around the capital building and then I made my way South. 
+						</p>
+                        <div class="thumbnail">
+                            <img src="madison-capital.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Saying goodbye to the capitol building</p>
+                            </div>
+                        </div>
+                        
+					</div> <!-- End Content 2-->
+
+                    <div id="St-Louis-Pt">
+                        <h1>The Gateway City</h1>
+                        <p class="lead">I knew I’d pass by St. Louis on my way South so I figured I’d stop by and check out the city.  </p>
+
+                        <div class="thumbnail">
+                            <img src="st-louis-arch.png" class="img-responsive">
+                            <div class="caption">
+                                <p>Look its the Arch!</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                        I don’t know anyone in the area so the most economical way to sleep was to stay in a hostel. This was my first hostel experience and it was inexpensive and close to the city, which was everything I could ask for. I met some very interesting people in this hostel including the hostel owners, some avid petitioners and one very sweet porch cat. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="st-louis-hostel-cat.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Friends of all types were made</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                             Although St. Louis is a bit more spread out than the other cities I had been to thus far it was surprisingly bike friendly.  From the hostel I was able to explore the entire city by bike. I road through Forest Park, hung out in the botanical gardens and enjoyed some time in the butterfly garden. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="st-louis-butterflies.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>All types of friends!</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="St-Louis-Nashville-Path">
+						<h1>First Night 'Roughing It'</h1>
+
+						<p class="lead">
+                            St. Louis seemed to be rather far from anywhere I was interested in going so I packed all my stuff and started heading towards my next closest point of interest knowing I’d be spending my first night camping. The drive was long so I worked my way towards a backcountry campground along the way where I could set up camp. This was my first night spent ‘roughing it’.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="camping-kentucky.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>My first night of the trip spent camping </p>
+                            </div>
+                        </div>
+
+
+					</div> <!-- End Content 3-->
+
+                    <div id="Nashville-Pt">
+                        <h1>Music City</h1>
+
+                        <p class="lead">
+                        Even if it weren’t for my GPS directing me, I would have known I was heading South by how hot it was getting. Despite the heat I stuck to my routine of parking my car and exploring the city via bicycle. I checked out the Country Music Hall of Fame road around the Bicentennial Capitol Mall and unexpectedly found the Parthenon.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="nashville-parthenon.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The Parthenon Tennessee... not Greece </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+					<div id="Nashville-Baton-Rouge-Path">
+						<h1>Into the Heat</h1>
+
+						<p class="lead">
+                            As if it wasn’t hot enough in Tennessee I was heading south again. I had signed up for an opportunity to help the flood victims in Louisiana and the heat wasn’t going to stop me from going through with those plans. On the way south I briefly stopped in Alabama and Mississippi to check out a few places but for the most part I beam lined it towards Louisiana. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="huntsville-alabama.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>U.S. Space & Rocket Center, AL</p>
+                            </div>
+                        </div>
+					</div> <!-- End Content 3-->
+
+                    <div id="Baton-Rouge-Pt">
+
+                        <h1>Samaritan's Purse</h1>
+                        <p class="lead">
+                            To be totally honest I had no idea what I was in for when I signed up to volunteer for eight days in Louisiana. I had no idea what Samaritan’s Purse was, I could only take guesses as to what a “mud out” was and I had no idea how bad a flood could damage a town. When we set out on our first day my eyes were open to the truly devastating effects of a massive flood. 
+                        </p>
+                     
+                        <div class="thumbnail">
+                            <img src="baton-rouge-trash-piles.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>A devastating site in Baton Rouge</p>
+                            </div>
+                        </div>
+
+                        <blockquote>
+                            <p>"To us it looks like trash but to the people who live here it was their lives."</p>
+                            <footer>Dale our group lead</footer>
+                        </blockquote>
+
+                        <p class="lead">
+                            It turns out that Samaritan’s Purse is a pretty awesome volunteer organization that organizes volunteer groups during times of national crises. For floods we went to houses and did mud outs. This basically means we remove everything from the house that was contaminated by the floodwater. It’s hard work ripping out floor and crawling under houses but it was all worth it to help out some very grateful families.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="under-the-house.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Okay I'm under the house... now what? </p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="samaritans-purse-group.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The BEST mudout team </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+					<div id="Baton-Rouge-Dallas-Path">
+						<h1>Cowboy Nation </h1>
+
+						<p class="lead">
+                            After over a week of volunteering my time with Samaritan’s purse was coming to a close and it was time to hit the road again. Since I was already down this far south I put Texas was next on my list. I had been to the state on multiple occasions for national wrestling tournaments and one Ironman competition but I was always so busy that I never really had the chance to explore. Despite my gut feelings as an Eagles fan I made my way towards Dallas. 
+						</p>
+
+                        
+                        <div class="thumbnail">
+                            <img src="cowboys.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Cowboys casually riding into the sunset </p>
+                            </div>
+                        </div>
+
+                        <!--<div class="thumbnail">
+                            <img src="baton-rouge-texas.png" class="img-responsive">
+                            <div class="caption">
+                                <p>Driving into Cowboy Territory </p>
+                            </div>
+                        </div>-->
+					</div> <!-- End Content 4-->
+
+
+                    <div id="Dallas-Pt">
+                        <h1>The Loan Star State</h1>
+                        <p class="lead">
+                            So my day started off at 4:30am when I got locked out of my Air BnB. I took that as a sign that I should get my day started early. I went through my normal routine as I got on my bike to explore downtown. Here I found some very pretty sights like Thanks Giving Square. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="dallas.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Thanks-Giving Square, Dallas </p>
+                            </div>
+                        </div>
+                        
+
+                        <p class="lead">
+                            While I was downtown I searched around for things going on in Dallas and I came across a rugby team that plays every Sunday. I’ve never played rugby before but I’d also never been a nomad before so I figured I’d give it a shot. I quickly googled the rules to Rugby so I wasn’t completely blind going into it then I showed up early so I could be placed on a team. With rugby’s non-stop running and extreme contact it’s exactly what I look for in a sport. It went so well that an event I thought would only take a few hours ended up turning into the entire day. After the game I hung with the team for a cookout as we chatted it up. I made some good friends that day and I’m now inspired to play rugby.
+                        </p>
+                        
+                        <div class="thumbnail">
+                            <img src="rugby.png" class="img-responsive">
+                            <div class="caption">
+                                <p>Food and beer with the rugby team </p>
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+
+					<div id="Dallas-South-Dekota-Path">
+						<h1>A change of direction</h1>
+						<p class="lead">
+                What happens next kind of sets the stage for how I operated for the rest of my trip. Some of the rugby players mentioned that they had seen some pretty cool stuff in South Dakota. Inspired by some of the places mentioned by them I decided to free myself from any of my plans to immediately head west and instead just go wherever the people I met suggested. I had never been to South Dakota before and I knew cold weather was going to be coming in so it was best to get to the colder locations sooner rather than later. It was a long drive and involved two nights of camping to get to my next location.						
+                </p>
+                        <div class="thumbnail">
+                            <img src="camping-woods.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Campsite before sunset </p>
+                            </div>
+                        </div>
+               
+                        <p class="lead">
+                            A drive like this is long and I wouldn’t recommend it. To keep myself sane I used podcasts and the constant reminder that self driving cars will make a trip like this signficianlty easier for future generations.
+                            </p>
+
+                        <div class="thumbnail">
+                            <img src="camping-to-badlands.png" class="img-responsive">
+                            <div class="caption">
+                                <p>Camping by the water... It's all about the little things</p>
+                            </div>
+                        </div>
+					</div> <!-- End Content 5-->
+
+                    <div id="South-Dekota-Pt">
+                        
+                        <h1>South Dakota</h1>
+                        
+                        <p class="lead">
+                            So after two days of driving my GPS lead me here.  
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="middle-of-anywhere.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>I drove all day for this?</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            Thankfully I had an old fashion map and it turns out my gps was only 15 minutes off of my desired location, really not bad for technology when you think about it.   
+                        </p>
+
+                        <h2>
+                            The Badlands!
+                        </h2>
+<div class="thumbnail">
+                            <img src="badlands-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The actual badlands</p>
+                            </div>
+                        </div>
+                        <p class="lead">
+                            One of the rugby players in Texas had mentioned that he had been to place called The Badlands in South Dakota. He said it was one of those things you had to see for yourself to understand how incredible it was. When I arrived there I understood exactly what he meant. I stocked up on water and calories then went hiking through the seemingly endless the crevasses in the earth. 
+                        </p>
+
+                        
+
+                        <div class="thumbnail">
+                            <img src="hiking-badlands.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Incredible hiking weather</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail">
+                            <img src="camping-badlands.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Camping in the badlands</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="sunrise-badlands.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Woke up to this great sunrise</p>
+                            </div>
+                        </div>
+
+                        <h2>Mt. Rushmore </h2>
+
+                        
+                        <div class="thumbnail">
+                            <img src="mt-rushmore.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The legindary Mt. Rushmore</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            Conveniently right outside of the badlands is Mt. Rushmore and stopping there was a no brainer. What I didn’t expect is to find a campsite directly behind the mountain. I set up camp there and met a bunch of climbers who ended up being great to climbing and hiking companions.  
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="climbing-south-dekota.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Climbing behind Mt. Rushmore</p>
+                            </div>
+                        </div>
+                        
+                        
+                        <h2>Needles Highway </h2>
+
+                        <p class="lead">
+                            In conversation with my new climbing friends it was brought to my attention that not only is needles highway a beautiful scenic route for driving and hiking but also that there was a local climbing community gathering by the major spires. We all decided to go our separate ways for the day and then meet up at the spires for the climbing event. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="hiking-needles-highway.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Hiking off needles highway</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            The climbing group meeting there was celebrating the quickly approaching Halloween. The idea was that they would dress in costumes then climb the spires with pumpkins attached them. Once at the top they carved the pumpkin and put their headlamps inside it to allow the jack-o’-lantern to safely glow all night. What an awesome idea!
+                        </p>
+                        <div class="thumbnail">
+                            <img src="south-dekota-climbing-on-point.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>South Dekota climbing community is on point</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+					<div id="South-Dekota-Rocky-Mountains-Path">
+						<h1>Heading to Colorado</h1>
+
+                        <p class="lead">
+Some of the climbers invited myself and the other campers to a Halloween celebration they were having at a cavers house. The person who lived at the house was a spelunker throughout Wind Cave. In the spirit of their profession they built a cardboard tunnel maze / house of terror in their garage. It was an extremely clever use of resources and surprisingly spooky to go through. Although I really enjoyed hanging with my new friends it had also inspired me to hanging do some more intense climbing and the Colorado Rockies were calling my name.  
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="spooky-house.png" class="img-responsive">
+                            <div class="caption">
+                                <p>I swear it was spookier inside</p>
+                            </div>
+                        </div>
+					</div> <!-- End Content 6-->
+					<div id="Rocky-Mountains-Pt">
+						<h1>Mountaineering Time</h1>
+
+                        <p class="lead">
+                        I had heard of the legendary Colorado 14ers before. In fact I had even reached the 14,000 foot summit at Mt. of the Holy Cross a year before, but that was in summer time. I was about to embark into the Colorado Rockies in November with winter at the verge of breaking in. I fully understood that the situation was by no means favorable but that wasn’t going to deter me. I decided I was going to climb Colorado 14ers until the winter kicked me out. 
+                        </p>
+
+                        <div class="thumbnail">
+                        <img src="mountaineering-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Really in my element</p>
+                            </div>
+                        </div>
+                        
+
+					</div> <!-- End Rocky Point-->
+                    <div id="Rocky-Mountains-Telluride-Path">
+						<h1>Through the Rockies</h1>
+
+                        <p class="lead">
+                            I made my way though the Rockies over the next four weeks climbing up 14,000 foot peaks just about every day.  Although it was sometimes pretty grueling climbing up steep terrain through some bone chilling winds the main objective was beautifully binary. I climb up hill until I was reach the top and then I’d turn around go back down. 
+                        </p>
+
+                        <!--<div class="thumbnail">
+                        <img src="mountaineering-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>I swear it was spookier inside</p>
+                            </div>
+                        </div>-->
+                        <div class="thumbnail">
+                            <img src="mountaineering-5.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Climbing to new heights</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="mountaineering-3.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Fog made things interesting</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="mountaineering-8.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>On top of the world</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="math-kyle.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>My buddy Kyle and I on Mt. Elbert</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="mountaineering-goat.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Watch out for Goats!</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="mountaineering-6.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Endlessly climbing through mountains</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail">
+                        <img src="mountaineering-7.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>It's hard to imagine how I got sick</p>
+                            </div>
+                        </div>
+
+					
+					</div> <!-- End Badlands - RM - path -->
+                    <div id="Telluride-Pt">
+						<h1>A small speedbump</h1>
+
+                        <p clas="lead">
+                            I was riding high for a while but all good things have to comet o an end. I assumed the snow would be the reason I couldn’t go on but sometime during my 23 14,000 foot summits I caught a cold.  I pushed through it for a bit but on my last weekend in Colorado a new friend talked me out of attempting a rather risky climb while I was sick. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="getting-sick.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Getting sick is never fun</p>
+                            </div>
+                        </div>
+						
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="Telluride-Utah-Path">
+						<h1>Packing Out</h1>
+
+
+						<p class="lead">
+                            There wasn't too much time to rest, I had plans to meet a friend in Utah. So I packed up my climbing gear and started heading West again. 
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="leaving-the-rockies.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Goodbye for now mountains</p>
+                            </div>
+                        </div>
+					</div> <!-- End Badlands - RM - path -->
+					<div id="Utah-Pt">
+                        <h1>Utah</h1>
+                        <p class="lead">
+                            My friend from Pittsburgh and I planned on meeting out in Utah to go explore the many unbelievable sites across the state. I had been excited to make it to Utah since I started my trip and the entire state really lived up to my expectations.
+                        </p>
+						<h2>Hanging in Bryce</h2>
+                        <p class="lead">
+                            Since Chelsie was only visiting for a short period of time I let her pick what spots we went to. Based on her itinerary we went to Bryce Canyon to do some sight seeing and light hiking.  The slot canyons in Bryce reminded me of the endless canyons at the Badlands. Our timing seemed to be on point to as we got as that night there was a supper moon that we got to watch rise over the canyon. 
+                        </p>
+                         <div class="thumbnail">
+                            <img src="bryce-canyon.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Chels and I killing it</p>
+                            </div>
+                        </div>
+
+                        <h2>Zion N. P. </h2>
+                        <p class="lead">
+                            Our stay in Zion was a little less comfortable then our time in Bryce. In less than seven hours we managed to hike up to emerald pools as well as up both the east and west rim trails. The effort was rewarded with an amazing view from angles landing. Things did get a little tricky navigating the west rim to our campsite in the dark without a map or really any idea as to where we were going.  
+                        </p>
+                        <div class="thumbnail">
+                            <img src="angles-landing.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Angels Landing</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="camping-zion.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>We only got kind of lost</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+                    
+
+                    <div id="Utah-Las-Vegas-Path">
+						<h1>Hoover Dam</h1>
+
+						<p class="lead">
+                            Eventually Chelsie needed to fly back to Pittsburgh so I dropped her off at the airport and made my way to Nevada. This was again another place I’d never been but I was excited to see what places the desert had to offer. On the way there I stopped at the Hoover Dam to see this incredible feat of engineering.  
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="hoover-dam.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Dam</p>
+                            </div>
+                        </div>
+					</div> <!-- End Badlands - RM - path -->
+                    <div id="Las-Vegas-Pt">
+                        <h1>Las Vegas... Kind of</h1>
+                        <p class="lead">
+                            In Nevada I stopped in Las Vegas, well sort of. I drove towards it but I was more intrigued by the surrounding parks than the city itself. After stopping at a visitors center I planned my whole trip around the area. 
+                        </p>
+						<h2>Valley of Fire </h2>
+                        <p class="lead">
+                            Valley of Fire is notorious for its red sandy rocks that cover the landscapes. When I was hear I felt like I was on a different planet. 
+						</p>
+                        <div class="thumbnail">
+                            <img src="valley-of-fire.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Elephant Rock</p>
+                            </div>
+                        </div>
+
+                        
+
+                        <h2>Red Rock Canyon </h2>
+                        <p class="lead">
+                            I chose the most challenging hike available at Red Rock Canyon in order to get the best view possible. In Colorado I found that climbing to the top of peaks is my favorite type of hike. The hike was listed as challenging but after all that time in the mountains my difficulty scale was slightly skewed.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="red-rock-canyon.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Turtlehead Peak</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Las-Vegas-San-Francisco-Path">
+						<h1>Pioneer Saloon</h1>
+
+                        <p class="lead">
+                            As I was leaving Red Rock Canyon I met some fellow hikers who recommended that I stop at the Pioneer Saloon on my way west. It was on the way and I was starving (possibly literally) so I gave it a shot. It was a dive bar in the middle of nowhere with the most interesting group of characters I had ever seen. It was also karaoke night and when I walked in the bar tender was singing a song as she took my order. I was very impressed. 						
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="pioneer-saloon.png" class="img-responsive">
+                            <div class="caption">
+                                <p>This was something else</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            I left the saloon in route to California where I had big plans in mind.
+						</p>
+					</div> <!-- End Badlands - RM - path -->
+                    <div id="San-Francisco-Pt">
+						<h1>San Francisco </h1>
+                        
+                        <p class="lead">
+                            I got to San Francisco with an ambitious plan in mind. My dad was flying into San Diego to visit family in 4 days. I had done some quick research and discovered the Pacific Coast bike route from San Francisco to San Diego was around 600 miles long. A ride like that could be done rather comfortably in 6 or 7 days so I figured I’d do it in 4. Without much time to prepare I parked my car and set out on my bike into San Diego on bike. At midnight I started my trek by crossing the Golden Gate Bridge and heading south.                       </p>
+
+                        <div class="thumbnail">
+                            <img src="golden-gate-bridge.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The start of an ultra ride</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="San-Francisco-San-Diego-Path">
+						<h1>One Epic Result</h1>
+                        <p class="lead">
+                            I road my bike through the night along the coast for 8 hours straight just in time to catch sunrise (yes sunrise) in Santa Cruz. 
+						</p>
+                        <div class="thumbnail">
+                            <img src="bike-route-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Sunrise on the west coast?</p>
+                            </div>
+                        </div>
+
+						<p class="lead">
+                            I arrived at Big Sur at the eve of my second night of biking. This was supposedly the challenging hilly portion of the bike ride. Varying circumstances had stopped me from sleeping for the last 36 hours but despite that I was very excited for the challenge. Then in the middle of the night my bike started to make some alarming noises. After some inspection it turns out that 2 out of the 5 of screws holding together my drive were missing. The next closest place for parts was more than 100 miles away so I had little choice but to keep on going and hope for the best. I road on for another day using the view to distract me from my pragmatic situation. 
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="bike-route-1-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The view as very calming despite the circumstances</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            I maintained the remaining screws to the best of my ability as I road on throughout the night and through the next day but eventually my drive train fell apart leaving me essentially stranded. Thankfully my cousin was in the area (sort of) so I bundled up in my hammock and until he rescued me from my failed ultra ride. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="thin-scott.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>I had lost over 20lbs by this point</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            My dad who was now in the state drove up to pick me up we and we made the ride back to San Diego together stopping a few times along the way to enjoy route one’s views.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="dad-route-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Lunch at Nepenthe</p>
+                            </div>
+                        </div>
+					</div> <!-- End Badlands - RM - path -->
+                    <div id="San-Diego-Pt">
+						<h1>San Diego </h1>
+                        
+                        <p class="lead">
+                            I really enjoyed my time in San Diego. There was a great balance between family time and seeing old friends that worked out pretty well for me. To top it off it was also the first time I had been very comfortable in months.
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="family-san-diego.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Much needed family time</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="san-diego-ruby.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Sunset cliffs with Ruby</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="San-Diego-Grand-Canyon-Path">
+						<h1>Route 66</h1>
+                        <p class="lead">
+                            The route to the Grand Canyon was a decent distance drive from San Diego but it also gave me the opportunity to enjoy some of the uniquely scenic spots on Route 66. 
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="route-66.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>What a gem</p>
+                            </div>
+                        </div>
+						
+					</div> <!-- End Badlands - RM - path -->
+                    <div id="Grand-Canyon-Pt">
+						<h1>The Grand Canyon </h1>
+
+                        <p class="lead">
+                            When I got to the Grand Canyon I talked to a ranger at the ranger station to attempt to plan out my days there. He mentioned that there are two main paths that lead into the canyon from the park, Bright Angle Trail and the South Kaibab Trail. He recommended that I take a six mile round trip hike down part of the Kaibab Trail. When I got to the trail I was met by a very graphic warning sign that read, “hiking to the Colorado River and back in one day is NOT recommended…” 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="grand-canyon-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The most graphic of warning signs</p>
+                            </div>
+                        </div>
+
+                        <blockquote>
+                            <p>
+                                "Hiking to the Colorado River and back in one day is NOT recommended..." 
+                            </p>
+                            <footer>Graphic Warning Sign</footer>
+                        </blockquote>
+
+                        <p class="lead">
+                            After my failed bike attempt in California I knew I had to watch my limits… however halfway down the South Kaibab Trail I realized I’d be done way too early if I turned back now. So despite the signs warning I decided to knock out both trails in one day by hiking the rest of the way down to the Colorado River and back up Bright Angel Trail.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="grand-canyon-3.jpg" class="img-responsive">                           
+                            <div class="caption">
+                                <p>Boop</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+                            Despite a late start and some dilly-dallying with photos I even managed to make it back to the top before sunset.
+                        </p>
+                        
+                        <div class="thumbnail">
+                            <img src="grand-canyon-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>16 miles later</p>
+                            </div>
+                        </div>
+
+
+					</div> <!-- End Content 7-->
+
+
+                    <div id="Grand-Canyon-Paige-Path">
+							<h1>Bending North</h1>
+                            <p class="lead">
+                                Slightly North of the Grand Canyon is Horseshoe Bend. I figured I’d take a trip there enjoy a sunrise then make my way south to Sedona. However Paige Arizona had a lot more in store for me than I could have imagined.    						
+                            </p>
+					</div> 
+
+                    <div id="Paige-Pt">
+						<h1>Horsing around</h1>
+                            <p class="lead">
+                                I really thought that Arizona was just the grand canyon, I had no idea how much even a small town like Paige had to offer.
+                            </p>
+                        <h2>Horseshoe Bend </h2>
+                        <p class="lead">
+                            My plan was to spend an hour at horseshoe bend then make my way towards Sedona however a small comment about how close I was standing to the ledge changed all of those plans. This is how I met Johnny, his girlfriend Ashley and another traveler Mitchel. We all hit it off right from the bat and Johnny and Ashley offered us their two extra tickets to go to Coyote Buttes with them.                        </p>
+                        <div class="thumbnail">
+                            <img src="horseshoe-bend.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Incredible photo taken by my incredible new friends</p>
+                            </div>
+                        </div>
+                        <blockquote>
+                            <p>
+                                "You're obviously not afraid of heights." 
+                            </p>
+                            <footer>Johnny</footer>
+                        </blockquote>
+
+
+                        <h2>Coyote Buttes </h2>
+                        <p class="lead">
+                            That small comment opened up a friendship between three strangers and we hung out for the next two days exploring the Coyote Buttes.                         </p>
+                        <div class="thumbnail">
+                            <img src="coyote-buttes.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Southern Coyote Buttes</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                         <img src="coyote-buttes-rock-n-roll.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Rock N' Roll at the wave</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                         <img src="coyote-buttes-walking.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Basically in National Geographic</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                         <img src="coyote-buttes-friends.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Our new album cover</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                         <img src="coyote-buttes-sneaky.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>PHOTOBOMB!</p>
+                            </div>
+                        </div>
+
+                        <h2>Back to the Bend</h2>
+                        <p class="lead">
+                            At the end of the day we'd come back to Horseshoe bend to catch the sunset. I think this was the most incredible sunset I'd ever seen.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="horseshoe-bend-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Bravo</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Paige-Sedona-Path">
+						<h1>Mountian Break</h1>
+
+                        <p class="lead">
+                            When I finally left Paige I headed down to Sedona as I originally planned. On the way though I couldn’t help but stop in flagstaff to rejoin the mountains again.
+						</p>
+
+                        <div class="thumbnail">
+                            <img src="humpherys-peak.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Humpherys Peak</p>
+                            </div>
+                        </div>
+
+					</div>
+
+                    <div id="Sedona-Pt">
+						<h1>Sedona</h1>
+                        <p class="lead">
+                            By recommendation I  hiked towards devils bridge to start my time here. On Devils Bridge I met some other hikers who going to hike Bear Mountain that day. At this point I was basically unable to pass up any hike with the word mountain in it so I spent the rest of the day hanging with them. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="devils-bridge.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Devils Bridge</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Sedona-Phoenix-Path">
+					    <h1>Phoenix has Mountians?</h1>
+                        <p class="lead">
+                            The new friends I met in Sedona happened to be from Phoenix Arizona. When they heard I was love hiking up mountains they suggested I stop by the city and check out the surrounding hikes. So I made my way towards Phoenix.  
+						</p>
+                        <div class="thumbnail">
+                            <img src="phoenix-drive.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Another great Arizona sunset</p>
+                            </div>
+                        </div>
+                        
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="Phoenix-Pt">
+						<h1>Feels Good to be Warm</h1>
+
+                        <p class="lead">
+                            I felt like I had been cold since I left California so I welcomed the Phoenix heat. I had been told there were two summit hikes in the area that I would enjoy and so I planned on tackling both of them during my stay in Phoenix.
+                        </p>
+                        <h2>Camelback Mt. </h2>
+                        <p class="lead">
+                            Directly in the city of Phoenix is Camelback Mountain. It can get pretty crowded so I got up early and jogged to the top of it before sunrise. Watching the sunrise over the city from Camelback Mountain was a great way to start my day. The city had also placed a Christmas tree at the top for all summiteers to get into that holiday spirit. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="camelback-mt-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>On top of the world again</p>
+                            </div>
+                        </div>
+                        
+                        <div class="thumbnail">
+                            <img src="camelback-mt.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Feeling that Christmas Spirit</p>
+                            </div>
+                        </div>
+
+                        
+                        <h2>Flat Iron Mt.</h2>
+                        <p class="lead">
+                            Flat Iron Mountain was other peak I needed to climb while I was here. When I arrived at the State Park it was contained in a park ranger greeted me. She was sure to repeatedly warn me of the dangers of attempting to summit the Mountain. I knew it was a significantly longer hike to the peak but that made it even more fun to climb.
+                        </p>
+
+                        <blockquote>
+                            <p>
+                                "Are you aware of the dangers of trying to summit Flat Iron Mountain?" 
+                            </p>
+                            <footer>Park Ranger</footer>
+                        </blockquote>
+                        <div class="thumbnail">
+                            <img src="flat-iron-mt-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>It's a long way to the top</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="flat-iron-mt.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Flat Iron Mountain Summit</p>
+                            </div>
+                        </div>
+                        
+
+					</div> <!-- End Content 7-->
+                    <div id="Phoenix-Tucson-Path">
+						<h1>Looking for Cacti</h1>
+
+                        <p class="lead">
+                            After climbing everything I wanted to summit in Phoenix I made my way a little further east to find myself some more cactuses.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="tucson-drive.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>The first of many of these</p>
+                            </div>
+                        </div>
+                            
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="Tucson-Pt">
+						<h1>Saguaro National Park</h1>
+
+                        <p class="lead">
+                            I had never seen a large cactus before this trip, so I was going to get my fill while I was out here. By the end of my time hiking through Saguaro National Park I had seen, and been stuck, by more than my fair share of cactuses.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="tucson-hike.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Cacti or Cactuses?</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="cactus-friend.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>When you've been in the heat for too long</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Tucson-Guadalupe-Peak-Path">
+						<h1>Last Peak I Promise</h1>
+                        
+                        <p class="lead">
+                            A guy I met in the Grand Canyon mentioned that Texas had a mountain that was worth checking out. This was news to me as I assumed that Texas was mostly flat so of course I added it to my list of places to go.
+                        </p>
+                        <div class="thumbnail">
+                                <img src="road-to-guadalupe-peak.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Mt. Guadalupe in the distance</p>
+                            </div>
+                        </div>
+                            
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="Guadalupe-Peak-Pt">
+						<h1>Guadalupe Peak</h1>
+
+                        <p class="lead">
+                            It was a couple miles to the top of Guadalupe Peak but besides some strong winds at the summit it was beautiful weather to climb a mountain. I moved slower than usual that day to soak in the last bit of climbing for a while.
+                        </p>
+                        <div class="thumbnail">
+                            <img src="guadalupe-peak-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Cowboy it up</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="guadalupe-peak-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Soaking it in</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="guadalupe-peak-3.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Totally safe metal piece at the top</p>
+                            </div>
+                        </div>
+
+                        <h2>Carlsbad Caverns</h2>
+                        <p class="lead">
+                            Conveniently close to Guadalupe peak was Carlsbad Caverns. Carlsbad is a famous cavern that is more than 700 feet below the surface. I arrived just in the nick of time to get the last elevator into the caverns. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="carlsbad-caverns-1.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Check these out</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="carlsbad-caverns-2.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>ooh ahh</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Guadalupe-Peak-Austin-Path">
+						<h1>Austin Bound</h1>
+
+                        <p class="lead">
+                        I had another friend flying in to Texas to visit me in the next two days so it was time to hit the road again so I could intercept them in Austin. 
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="leaving-carlsbad.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>A calm before the cold front</p>
+                            </div>
+                        </div>
+                            
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="Austin-Pt">
+						<h1>Austin</h1>
+
+                        <p class="lead">
+                            When my friend Jen arrived it was way colder in Texas than I expected. Considering everything I wanted to do involved being outside I would say this messed with our plans a bit. Basically while we were in Austin we tried a bunch of different food around the city attempting to wait out the cold.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="austin-food.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Breakfast Tacos!</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Content 7-->
+
+                    <div id="Austin-New-Orleans-Path">
+						<h1>Maybe New Orleans is Warm</h1>
+
+                        <p class="lead">
+                            Okay Austin was way too cold. We figured it’d be best to try our luck in a different city so we made our way east towards New Orleans. We kept our selves occupied with a stop at the Huston Aquarium and I even found a great camping spot.
+                        </p>
+
+                        <div class="thumbnail">
+                            <img src="huston-tigers.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Surprisingly this is an Aquarium</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="camping-lousiana.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Nothing like camping on the beach</p>
+                            </div>
+                        </div>
+
+						</p>
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="New-Orleans-Pt">
+						<h1>New Orleans</h1>
+
+                        <p class="lead">
+                            Blindly following suggestions made by the workers at our hostel we were able to find some very hip spots in New Orleans. The music scene was very “funky” and the local dive bars were pretty chill. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="new-o-music.png" class="img-responsive">
+                            <div class="caption">
+                                <p>A typical Wednesday at The Spotted Cat</p>
+                            </div>
+                        </div>
+                        <div class="thumbnail">
+                            <img src="new-o-bar.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Slightly photobomed here</p>
+                            </div>
+                        </div>
+
+
+					</div> <!-- End Content 7-->
+
+                    <div id="New-Orleans-West-Chester-Path">
+						<h1>Heading Home</h1>
+
+                        <p class="lead">
+                            With Christmas Eve fast approaching I realized I had run out of time so I prepared for the long drive home.  The drive was mostly direct however there were a few spots along the way that were worth a stop. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="gator.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>You can't go to Lousiana without seeing one of these</p>
+                            </div>
+                        </div>
+
+                        <div class="thumbnail">
+                            <img src="smokey-view.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Sunrise over the Smokeys</p>
+                            </div>
+                        </div>
+
+					</div> <!-- End Badlands - RM - path -->
+
+                    <div id="West-Chester-Pt">
+						<h1>Home for Christmas</h1>
+
+                        <p class="lead">
+                            As planned I made it home just in time for Christmas Eve. This was one of the few times that my entire family is together so it’s important to me that I’m able to be a part of that. 
+                        </p>
+                        <div class="thumbnail">
+                            <img src="rockNRoll.jpg" class="img-responsive">
+                            <div class="caption">
+                                <p>Christmas Eve 2016</p>
+                            </div>
+                        </div>
+
+                        <p class="lead">
+With my journey across the country finally concluded I had time to rethink a few things. If I had the opportunity would I make the same decision? The answer is yes, in a heartbeat. I went out on a limb and flew by the seat of my pants for a months and it was unpredictable and enjoyable. There were ups and downs throughout the trip but choosing to take this opportunity to travel across the country for half a year is an experience I don’t regret. Now all that being said, although all my traveling was an unforgettable experience that allowed me to form life long friendships and memories it was nice to have a warm bed to sleep for a bit. 
+                        </p>
+						
+
+					</div> <!-- End Content 7-->
+
+                    <div id="footer">
+                        <h1>Ending Stats</h1>
+                        <p class="lead">
+                            14ers Climbed: 24 </br>
+                            Miles Driven: 9,000+ </br>
+                            Miles Hiked: 338 </br>
+                            Miles Biked: 466 </br>
+                            
+						</p>
+                    </div>
+
+				</div> <!-- End Text Col --> 
+				<div  class="col-md-8">
+
+				</div>
+
+		</div> <!-- end row -->
+	</div> <!-- end container -->
+    <div id="canvas">
+
+    </div>
+<script src="american-adventure.js"></script>
+
+
 </body>
+
 </html>
