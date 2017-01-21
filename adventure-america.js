@@ -2,7 +2,7 @@ var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
 	containerElement = document.getElementById("container");
-
+	
 	xOffset = 650;
 	yOffset = -200;
 	var width = 2000, height = 1000;
@@ -459,16 +459,18 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 		}
 	}
 
-	function calculateOffsets(){
-		curWidth = containerElement.clientWidth;
-		console.log(width);
-		if(1500 < curWidth){
-			xOffset = 500
-		}
-		else{
-			xOffset = 650;
-		} 
-	}
+
+	// function calculateOffsets(){
+	// 	curWidth = containerElement.clientWidth;
+	// 	console.log(width);
+	// 	if(1500 < curWidth){
+	// 		xOffset = 500
+	// 	}
+	// 	else{
+	// 		xOffset = 650;
+	// 	} 
+	// }
+
 	function canvasStick(){
 		var canvasStyle = document.getElementById("canvas").style;
 		canvasStyle.top = "0";
