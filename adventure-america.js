@@ -2,7 +2,8 @@ var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
 	containerElement = document.getElementById("container");
-	
+
+	//Offsets for canvas center
 	xOffset = 650;
 	yOffset = -200;
 	var width = 2000, height = 1000;
