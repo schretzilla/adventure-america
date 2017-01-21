@@ -19,7 +19,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 	//SCALEMAX
 	//SCALEMIN
 
-	//var cachedScrollY = 0; //caches users scroll locations 
+	var cachedScrollY = 0; //caches users scroll locations 
 
 	projection = d3.geoAlbersUsa()
 
@@ -228,6 +228,9 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			//     this.graffic.updatePoint(windowTop);
 			// }
 		}
+		this.containsScreenAt = function(yPlacement) {
+			return (yPlacement < this.bottom && yPlacement > this.top);
+		}
 		//update objs dimensions -> used on screen size changes
 		this.updateDimensions = function(windowTop){
 			this.elementHeight = element.scrollHeight;
@@ -255,7 +258,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			null;
 		}
 		this.emptyEffect = function(){
-			var focalPoint = projection([currentElement.graffic.pin.long, currentElement.graffic.pin.lat]) 
+			var focalPoint = projection([this.pin.long, this.pin.lat]) 
 			focalPoint = { x: focalPoint[0], y: focalPoint[1] };
 			mapFrame.zoomTo(focalPoint, 6);
 		}
@@ -407,7 +410,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 
 		this.setView = function(point, scale){
 			this.group
-				// .transition()
+				.transition()
 				.attr("transform", this.transform(point, scale));
 		}
 
@@ -497,19 +500,57 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			orderElem = orderedElementArray[len];
 			orderElem.updateDimensions(windowTop);
 			len--;
-		}while(len)
+		}while(len);
 		//calculateOffsets();
 		scrollFunction();
 	}
-
+	/*
+	* called on large page jumps to redrawl lines as needed
+	*/
+	function pageRedrawl(windowTop) {
+		var len=orderedElementArray.length-1;
+		var orderElem;
+		var foundPlacement = false;
+		do{
+			orderElem = orderedElementArray[len];
+			if( !orderElem.containsScreenAt(windowTop)) {
+				orderElem.graffic.emptyEffect();
+			}
+			else {
+				//Found element
+				currentElement = orderElem; 
+				//TODO: clean this up and test
+				if(currentElement.graffic.isPath){
+					currentElement.scrollEffect(windowTop);
+				}else {					
+					//TODO: make function for 3 use cases
+					var focalPoint = projection([currentElement.graffic.pin.long, currentElement.graffic.pin.lat]) 
+					focalPoint = { x: focalPoint[0], y: focalPoint[1] };
+					mapFrame.setView(focalPoint, 6);
+				}
+				len--;
+				break;
+			}
+			len--;
+		}while(len);
+		
+		//Fill remainder of graffics
+		while(len){
+			orderElem = orderedElementArray[len];
+			orderElem.graffic.completeEffect();
+			len--;
+		}
+	}
 	var scrollFunction = function() {
 		//TODO: create function to double check paths are up to date on big scroll jumps.
 		//TODO: add pixles to window top so its offset fromt he very top of the page
 		var windowTop = $window.scrollY;
 
-		//Add buffer to reduce front end function calls
-		//TODO: Change buffer to percent of path length for smoother transitions on long lines
-		// var buffer = 100;	//larger buffer yields bigger line rendering jumps
+		//Catch fast page jumps
+		if (windowTop+1000 < cachedScrollY || windowTop - 1000 > cachedScrollY){
+			pageRedrawl(windowTop);
+		}
+		else{
 		// if (windowTop+buffer < cachedScrollY || windowTop-buffer > cachedScrollY ){
 			//determin current path by scrollY
 			//TODO: better way to handle current path than null
@@ -551,9 +592,11 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 				
 				currentElement.scrollEffect(windowTop);  //TODO: add graffic class 
 			}
-			//cachedScrollY = windowTop;
+		}//End large y jump condition
+			cachedScrollY = windowTop;
 
 		// }
+
 	}
 
 }]);
