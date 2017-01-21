@@ -1,12 +1,18 @@
 var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
+<<<<<<< HEAD
 	containerElement = document.getElementById("container");
 
 	//Offsets for canvas center
 	xOffset = 650;
 	yOffset = -200;
 	var width = 2000, height = 1000;
+=======
+	xOffset = 150;
+	yOffset = -150;
+	var width = 1400, height = 1000;
+>>>>>>> 1de7ec83ad1fda3d4a41eaa1661bc67c7bb0be53
 
 	var svg = d3.select("#canvas").append("svg")
 					.attr("width", width)
