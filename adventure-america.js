@@ -5,8 +5,8 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 
 	//Offsets for canvas center
 	xOffset = 650;
-	yOffset = -200;
-	var width = 2000, height = 1000;
+	yOffset = -650;
+	var width = 2000, height = 2000;
 
 
 	var svg = d3.select("#canvas").append("svg")
