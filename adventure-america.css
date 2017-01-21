@@ -1,10 +1,14 @@
-#header-img-div{
+            #header-img-div{
                     -webkit-background-size: cover;
                     -moz-background-size: cover;
                     background-size: cover;
                     -o-background-size: cover;
                     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('mt-header.jpg') no-repeat center center scroll;
                     height:400px;
+            }
+            #footer{
+                padding-top: 200px;
+                padding-bottom: 200px;
             }
 			.states {
 			  fill: #e6f2ff;

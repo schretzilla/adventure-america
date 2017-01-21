@@ -1,6 +1,8 @@
 var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
+	xOffset = 150;
+	yOffset = 0;
 	var width = 1400, height = 1000;
 
 	var svg = d3.select("#canvas").append("svg")
@@ -409,7 +411,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			//TODO: Confirm calculations
 			var px = width/2 - point.x * scale;
 			var py = height/2 - point.y * scale;
-			return this.transformStrBuilder(px, py, scale);
+			return this.transformStrBuilder(px+xOffset, py, scale);
 		}
 
 		this.transformStrBuilder = function(px, py, scale){
