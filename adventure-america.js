@@ -1,9 +1,11 @@
 var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
-	xOffset = 150;
-	yOffset = 0;
-	var width = 1400, height = 1000;
+	containerElement = document.getElementById("container");
+
+	xOffset = 650;
+	yOffset = -200;
+	var width = 2000, height = 1000;
 
 	var svg = d3.select("#canvas").append("svg")
 					.attr("width", width)
@@ -398,7 +400,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			this.group
 					.transition()
 					.duration(duration)
-					.attr("transform", this.transformStrBuilder(400, 0, scale))
+					.attr("transform", this.transformStrBuilder(950, 0, scale))
 		}
 
 		this.setView = function(point, scale){
@@ -411,7 +413,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			//TODO: Confirm calculations
 			var px = width/2 - point.x * scale;
 			var py = height/2 - point.y * scale;
-			return this.transformStrBuilder(px+xOffset, py, scale);
+			return this.transformStrBuilder(px+xOffset, py+yOffset, scale);
 		}
 
 		this.transformStrBuilder = function(px, py, scale){
@@ -457,6 +459,16 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 		}
 	}
 
+	function calculateOffsets(){
+		curWidth = containerElement.clientWidth;
+		console.log(width);
+		if(1500 < curWidth){
+			xOffset = 500
+		}
+		else{
+			xOffset = 650;
+		} 
+	}
 	function canvasStick(){
 		var canvasStyle = document.getElementById("canvas").style;
 		canvasStyle.top = "0";
@@ -482,6 +494,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			orderElem.updateDimensions(windowTop);
 			len--;
 		}while(len)
+		//calculateOffsets();
 		scrollFunction();
 	}
 
