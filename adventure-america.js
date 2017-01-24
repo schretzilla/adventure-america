@@ -542,7 +542,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 		}
 	}
 	var scrollFunction = function() {
-		//TODO: create function to double check paths are up to date on big scroll jumps.
 		//TODO: add pixles to window top so its offset fromt he very top of the page
 		var windowTop = $window.scrollY;
 
@@ -587,13 +586,12 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 					currentElement.graffic.emptyEffect();
 					currentElement = orderedElementArray[currentElement.orderNumber-1];
 					currentElement.graffic.setFocus();
-					//TODO: Add .focus to currentElement that gives animation on focus
 				}
 				
 				currentElement.scrollEffect(windowTop);  //TODO: add graffic class 
 			}
 		}//End large y jump condition
-			cachedScrollY = windowTop;
+		cachedScrollY = windowTop;
 
 		// }
 
