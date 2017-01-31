@@ -1,41 +1,39 @@
 var app =  angular.module('myApp', []);
 app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $document, $window){
 	
-	containerElement = document.getElementById("container");
+	window.onload = function() {
+		cachedScrollY = 0; //caches users scroll locations 
+		loadCanvas();
+	};
 
-	//Offsets for canvas center
-	xOffset = 650;
-	yOffset = -650;
-	var width = 2000, height = 2000;
-
-
-	var svg = d3.select("#canvas").append("svg")
-					.attr("width", width)
-					.attr("height", height)
-					.attr("id", "svg-ele");
-
-
-	//TODO: Add scale so whole map is seen without scrolling
-	//SCALEMAX
-	//SCALEMIN
-
-	var cachedScrollY = 0; //caches users scroll locations 
-
-	projection = d3.geoAlbersUsa()
-
-	var path = d3.geoPath()
-				.projection(projection);
-
-	g = svg.append("g");
-
-	//stores list of individual paths 
-	var pathObjArray = [];
-	var pointObjArray = [];
-	var orderedElementArray = []; //holds all ContentElementObject in order 
-
-	loadCanvas();
+	
 
 	function loadCanvas(){
+		//Offsets for canvas center
+		xOffset = 650;
+		yOffset = -650;
+		width = 2000, height = 2000;
+
+
+		var svg = d3.select("#canvas").append("svg")
+						.attr("width", width)
+						.attr("height", height)
+						.attr("id", "svg-ele");
+
+		//SCALEMAX
+		//SCALEMIN
+		projection = d3.geoAlbersUsa()
+
+		var path = d3.geoPath()
+					.projection(projection);
+
+		g = svg.append("g");
+
+		//stores list of individual paths 
+		pathObjArray = [];
+		pointObjArray = [];
+		orderedElementArray = []; //holds all ContentElementObject in order 
+
 		d3.json("us_states_topo_simplified_20m.json", function(error, us){
 
 			var gradient = svg
@@ -108,33 +106,22 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 				for(i=0; i<len; i++){
 					links = [];
 
-					//TODO: Logic here could use work
-					// do{
-						var pivitAhead = false;
-						links.push({
-							type: "LineString",
-							coordinates: [
-								[ places[i].long, places[i].lat ],
-								[ places[i+1].long, places[i+1].lat ]
-							]
-						});
-					// 	if( places[i+1].name == "Pivit" && i<len){
-					// 		i++;
-					// 		pivitAhead = true;
-
-					// 	};
-					// }
-					// while(pivitAhead);
+					var pivitAhead = false;
+					links.push({
+						type: "LineString",
+						coordinates: [
+							[ places[i].long, places[i].lat ],
+							[ places[i+1].long, places[i+1].lat ]
+						]
+					});
 						
 
 					var arcPath = g.selectAll(".arcPath"+places[i].identifier)
 						.data(links)
 						.enter()
 						.append("path")
-						.attr("class","arcPath"+places[i].identifier) //TODO: name it off the cities it connects
-						.attr("d", path)
-						// .attr("stroke-linecap","round")		//useless lines
-						// .attr("stroke-linejoin", "round");	//useless lines
+						.attr("class","arcPath"+places[i].identifier) 
+						.attr("d", path);
 
 					var totalLength = arcPath.node().getTotalLength();
 
@@ -142,7 +129,7 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 					arcPath.attr("fill", "none").attr("stroke", "red").attr("stroke-width", "1px");
 					//Offset array
 					arcPath
-						.attr("stroke-dasharray", totalLength + " " + totalLength) //length of line, length ofgap
+						.attr("stroke-dasharray", totalLength + " " + totalLength) //length of line, length of gap
 						.attr("stroke-dashoffset", totalLength ); //where dasharray starts
 
 					var startCircle = g.select("#"+points[i].identifier+"-pin");
@@ -155,10 +142,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 					var endPin = new LocationPin(endCircle, endText, points[i+1].long, points[i+1].lat);
 					endPin.bringToFront(); 
 
-
-					//Build new path object     
-					// var elementHeight = document.getElementById("content"+pathObjArray.length).scrollHeight;
-			
 					//Store point obj in array
 					var pointObj = new PointObject(startPin, pointObjArray.length); //TODO: this will cause issues on last pin edge case
 					var pointElement = document.getElementById(points[i].identifier+"-Pt");
@@ -175,7 +158,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 					
 				}
 
-				//TODO: this should be done first with the starting pt
 				//Add Ending Point
 				var startPin = pathObjArray[pathObjArray.length-1].endPin;
 				var pointObj = new PointObject(startPin, pointObjArray.length); 
@@ -464,18 +446,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 		}
 	}
 
-
-	// function calculateOffsets(){
-	// 	curWidth = containerElement.clientWidth;
-	// 	console.log(width);
-	// 	if(1500 < curWidth){
-	// 		xOffset = 500
-	// 	}
-	// 	else{
-	// 		xOffset = 650;
-	// 	} 
-	// }
-
 	function canvasStick(){
 		var canvasStyle = document.getElementById("canvas").style;
 		canvasStyle.top = "0";
@@ -556,7 +526,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			if(windowTop < orderedElementArray[0].top ){
 				//in header teritory
 
-				//TODO: add Header and Footer to orderedElementArray
 				if( currentElement != null ){
 					canvasUnStick(windowTop);
 					currentElement = null;
@@ -592,8 +561,6 @@ app.controller('myCtrl', ['$scope', '$document', '$window', function($scope, $do
 			}
 		}//End large y jump condition
 		cachedScrollY = windowTop;
-
-		// }
 
 	}
 
